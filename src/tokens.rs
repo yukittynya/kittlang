@@ -1,4 +1,6 @@
+#[allow(dead_code)]
 #[derive(strum_macros::Display)]
+#[derive(Clone, Copy)]
 pub enum TokenType {
     //single chars
     LeftParen, RightParen, LeftBrace, RightBrace,
@@ -24,18 +26,18 @@ pub enum TokenType {
 pub enum Literal {
     Indentifier(String), 
     String(String),
-    Number(i32)
+    Number(f64)
 }
 
 pub struct Token {
-    token_type: TokenType,
-    lexeme: String,
-    literal: Option<Literal>,
-    line: i32
+    pub token_type: TokenType,
+    pub lexeme: Vec<u8>,
+    pub literal: Option<Literal>,
+    pub line: usize 
 }
 
 impl Token {
-    pub fn new(token_type: TokenType, lexeme: String, literal: Option<Literal>, line: i32) -> Self {
+    pub fn new(token_type: TokenType, lexeme: Vec<u8>, literal: Option<Literal>, line: usize) -> Self {
         Token {
             token_type,
             lexeme,
@@ -43,11 +45,4 @@ impl Token {
             line
         }
     }
-
-    pub fn to_string(self) -> String {
-        let res = format!("{} is {} on line {}", self.lexeme, self.token_type, self.line);
-
-        res
-    }
 }
-
