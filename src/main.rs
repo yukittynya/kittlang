@@ -1,6 +1,8 @@
 use std::env;
-use std::fs::File;
 use std::io;
+use std::fs;
+
+use crate::scanner::Scanner;
 
 mod tokens;
 mod errors;
@@ -14,7 +16,11 @@ fn main() -> io::Result<()> {
         return Ok(());
     }
 
-    let mut file = File::open(&args[1]);
+    let source: String = fs::read_to_string(&args[1])?;
+    let mut scanner = Scanner::new();
+
+    scanner.scan_tokens(source);
+    scanner.print_tokens();
 
     Ok(())
 }

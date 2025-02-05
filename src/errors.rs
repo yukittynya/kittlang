@@ -1,4 +1,4 @@
-pub fn error(line: i32, msg: String) {
+pub fn error(line: usize, msg: String) {
     println!("[Line {}] {}", line, msg);
     panic!("Error");
 }

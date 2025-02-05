@@ -1,6 +1,8 @@
+use std::fmt;
+
 #[allow(dead_code)]
 #[derive(strum_macros::Display)]
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 pub enum TokenType {
     //single chars
     LeftParen, RightParen, LeftBrace, RightBrace,
@@ -23,6 +25,7 @@ pub enum TokenType {
     EOF
 }
 
+#[derive(Debug)]
 pub enum Literal {
     Indentifier(String), 
     String(String),
@@ -44,5 +47,30 @@ impl Token {
             literal,
             line
         }
+    }
+}
+impl fmt::Debug for Token {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "Token [Type: {:?}, Lexeme: \"{}\", Literal: {:?}, Line: {:?}]",
+            self.token_type,
+            String::from_utf8(self.lexeme.clone()).unwrap(),
+            self.literal,
+            self.line
+        )
+    }
+}
+
+impl fmt::Display for Token {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "Token [Type: {:?}, Lexeme: \"{}\", Literal: {:?}, Line: {:?}]",
+            self.token_type,
+            String::from_utf8(self.lexeme.clone()).unwrap(),
+            self.literal,
+            self.line
+        )
     }
 }

@@ -8,7 +8,7 @@ pub struct Error {
 }
 
 pub struct Scanner {
-    source: Vec<u8>,
+    pub source: Vec<u8>,
     tokens: Vec<Token>,
     start: usize,
     line: usize,
@@ -280,4 +280,10 @@ impl Scanner {
     fn is_alphanumeric(&self, c: char) -> bool {
         self.is_alpha(c) || self.is_digit(c)    
     }
-}
+
+    pub fn print_tokens(&self) {
+        for token in &self.tokens {
+            println!("{}", token.to_string());
+        }
+    } 
+} 
