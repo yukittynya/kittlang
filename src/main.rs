@@ -5,7 +5,6 @@ use std::fs;
 use crate::scanner::Scanner;
 
 mod tokens;
-mod errors;
 mod scanner;
 mod expression;
 
