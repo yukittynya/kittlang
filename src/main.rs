@@ -7,6 +7,7 @@ use crate::scanner::Scanner;
 mod tokens;
 mod errors;
 mod scanner;
+mod expression;
 
 fn main() -> io::Result<()> {
     let args: Vec<String> = env::args().collect();

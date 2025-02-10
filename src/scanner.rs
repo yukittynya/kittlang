@@ -140,6 +140,9 @@ impl Scanner {
             '\n' => {
                 self.line += 1;
             }
+            '"' => {
+                self.string();
+            }
             _ => {
                 if self.is_digit(c) {
                     self.number();
@@ -201,8 +204,9 @@ impl Scanner {
         while self.peek() != '"' && !self.at_end() {
             if self.peek() == '\n' {
                 self.line += 1;
-                self.advance();
             } 
+
+            self.advance();
         }
 
         if self.at_end() {
@@ -211,6 +215,8 @@ impl Scanner {
                 line: self.line
             })
         }
+
+        assert!(self.peek() == '"');
 
         self.advance();
 
