@@ -1,21 +1,43 @@
-use crate::tokens::Token;
+use crate::tokens::Literal;
 
+#[derive(Debug)]
 pub enum Expr {
-    Binary(Box<Binary>)
+    Binary(Box<Expr>, BinaryOp, Box<Expr>),
+    Group(Box<Expr>),
+    Literal(Literal),
+    Unary(UnaryOp, Box<Expr>)
 }
 
-pub struct Binary {
-    pub left: Box<Expr>,
-    pub operator: Token,
-    pub right: Box<Expr>
+#[derive(Debug)]
+pub enum BinaryOpType {
+    EqualEqual,
+    NotEqual,
+    Less,
+    LessEqual,
+    Greater,
+    GreaterEqual,
+    Plus,
+    Minus,
+    Star,
+    Slash,
 }
 
-impl Binary {
-    fn new(left: Expr, op: Token, right: Expr) -> Expr {
-        Expr::Binary(Box::new(Binary {
-            left: Box::new(left),
-            operator: op,
-            right: Box::new(right)
-        }))
-    }
+#[derive(Debug)]
+pub struct BinaryOp {
+    pub op: BinaryOpType,
+    pub line: usize,
+    pub col: usize
+}
+
+#[derive(Debug)]
+pub enum UnaryOpType {
+    Bang,
+    Minus
+}
+
+#[derive(Debug)]
+pub struct UnaryOp {
+    pub op: UnaryOpType,
+    pub line: usize,
+    pub col: usize
 }

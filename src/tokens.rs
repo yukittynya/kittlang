@@ -1,7 +1,5 @@
 use std::fmt;
 
-#[allow(dead_code)]
-#[derive(strum_macros::Display)]
 #[derive(Clone, Copy, Debug)]
 pub enum TokenType {
     //single chars

@@ -1,12 +1,13 @@
 use std::env;
-use std::io;
 use std::fs;
+use std::io;
 
 use crate::scanner::Scanner;
 
-mod tokens;
-mod scanner;
 mod expression;
+mod parser;
+mod scanner;
+mod tokens;
 
 fn main() -> io::Result<()> {
     let args: Vec<String> = env::args().collect();
